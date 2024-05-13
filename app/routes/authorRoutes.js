@@ -70,13 +70,13 @@ router.post("/", (req, res) => {
 router.put("/:id", (req, res) => {
   try {
     const index = findAuthorIndex(req.params.id);
-    const updatedAuthors = [...authors];
-    updatedAuthors[index] = { ...updatedAuthors[index], ...req.body };
-    updateAuthors(updatedAuthors);
+    console.log(index);
+    authors[index] = { ...authors[index], ...req.body };
+    updateAuthors(authors);
     res.status(200).json({
       success: true,
       message: `${req.method} - Author with id: ${req.params.id} updated successfully`,
-      data: updatedAuthors[index],
+      data: authors[index],
     });
   } catch (err) {
     res.status(404).json({
