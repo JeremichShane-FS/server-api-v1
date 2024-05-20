@@ -1,6 +1,6 @@
-const fs = require("fs");
+import fs from "fs";
 
-function updateAuthors(newAuthors) {
+export const updateAuthors = newAuthors => {
   console.log("Updating authors", newAuthors);
   try {
     const filePath = `${__dirname}/../app/data/authors.json`;
@@ -10,6 +10,6 @@ function updateAuthors(newAuthors) {
   } catch (err) {
     console.error("Error updating authors", err);
   }
-}
+};
 
-module.exports = { updateAuthors };
+export default updateAuthors;

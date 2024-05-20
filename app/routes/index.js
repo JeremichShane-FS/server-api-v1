@@ -1,5 +1,8 @@
-const router = require("express").Router();
-const authorRoutes = require("./authorRoutes");
+import express from "express";
+import actorRoutes from "./actorRoutes.js";
+import tvShowRoutes from "./tvShowRoutes.js";
+
+const router = express.Router();
 
 router.get("/", (req, res) => {
   res
@@ -8,6 +11,7 @@ router.get("/", (req, res) => {
 });
 
 // Routes
-router.use("/authors", authorRoutes);
+router.use("/tvshows", tvShowRoutes);
+router.use("/actors", actorRoutes);
 
-module.exports = router;
+export default router;

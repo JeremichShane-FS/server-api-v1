@@ -1,8 +1,8 @@
-const express = require("express");
-const morgan = require("morgan");
-const app = express();
-const routeHandler = require("./routes");
+import express from "express";
+import morgan from "morgan";
+import routeHandler from "./routes/index.js";
 
+const app = express();
 app.use(morgan("dev"));
 app.use(express.json({ limit: "10kb" }));
 
@@ -28,4 +28,4 @@ app.use((err, req, res, next) => {
   });
 });
 
-module.exports = app;
+export default app;
