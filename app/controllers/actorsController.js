@@ -2,7 +2,15 @@ import { Actor } from "../models/Actor.js";
 
 export const getAllActors = async (req, res) => {
   try {
-    const actors = await Actor.find({}).select("-__v").populate("filmography");
+    const actors = await Actor.find({}).select("-__v").populate("filmography").exec();
+
+    if (!actors) {
+      return res.status(404).json({
+        success: false,
+        message: "No Actors found",
+      });
+    }
+
     res.status(200).json({
       success: true,
       message: `${req.method} - ${req.hostname} - ${req.originalUrl}`,
