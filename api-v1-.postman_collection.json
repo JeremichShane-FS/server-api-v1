@@ -1,0 +1,582 @@
+{
+	"info": {
+		"_postman_id": "6a496848-d5ab-4c6f-8780-79c053f3bb58",
+		"name": "api/v1/",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10065759"
+	},
+	"item": [
+		{
+			"name": "tvshows",
+			"item": [
+				{
+					"name": "tvshows",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response has the required fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(responseData.data).to.be.an('array'); ",
+									"    pm.expect(responseData.data[0]).to.have.property('title');",
+									"    pm.expect(responseData.data[0]).to.have.property('genre');",
+									"    pm.expect(responseData.data[0]).to.have.property('releaseYear'); ",
+									"    pm.expect(responseData.data[0]).to.have.property('actors');",
+									"});",
+									"",
+									"pm.test(\"Response ready to process\", function() {",
+									"    pm.response.to.not.be.error;",
+									"    pm.response.to.have.jsonBody(\"data\");",
+									"    pm.response.to.not.have.jsonBody(\"error\");",
+									"    pm.expect(pm.response.json()).to.have.property(\"data\");",
+									"});",
+									"",
+									"pm.test(\"Content-Type header is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/tvshows/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tvshows",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tvshows",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Request body is not empty\", function () {",
+									"    pm.expect(pm.request.body).not.eql({});",
+									"});",
+									"",
+									"pm.test(\"Response has the required schema fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(responseData.data).to.be.an('object');",
+									"    pm.expect(responseData.data).to.have.property('title');",
+									"    pm.expect(responseData.data).to.have.property('genre'); ",
+									"    pm.expect(responseData.data).to.have.property('releaseYear'); ",
+									"});",
+									"",
+									"pm.test(\"Response content type is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"pm.test(\"Response has created ID\", function () {",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(responseData.data).to.have.property(\"_id\").that.is.not.null;",
+									"    pm.expect(responseData.data._id).to.have.lengthOf(24);",
+									"    pm.collectionVariables.set(\"tvshowId\", responseData.data._id);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Law & Order: Special Victims Unit\", \"genre\": \"drama\", \"releaseYear\": \"1999\", \"actors\": []}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/tvshows/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tvshows",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tvshow by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"pm.test(\"Validate the schema of the response body\", function () {",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(responseData.data).to.be.an('object');",
+									"    pm.expect(responseData.data).to.have.property('title');",
+									"    pm.expect(responseData.data).to.have.property('genre');",
+									"    pm.expect(responseData.data).to.have.property('releaseYear');",
+									"});",
+									"",
+									"pm.test(\"Actors array is present\", function () {",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(responseData.data.actors).to.be.an('array').and.to.have.lengthOf.at.least(0);",
+									"});",
+									"",
+									"pm.test(\"Success is true\", function () {",
+									"  const responseData = pm.response.json();",
+									"  pm.expect(responseData.success).to.equal(true);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/tvshows/{{tvshowId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tvshows",
+								"{{tvshowId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tvshow by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"  });",
+									"",
+									"pm.test(\"Request body is not empty\", function () {",
+									"    pm.expect(pm.request.body).not.eql({});",
+									"});",
+									"",
+									"pm.test(\"Request body requires one of the fields to be updated\", function () {",
+									"    const requestBody = JSON.parse(pm.request.body.toString());",
+									"    pm.expect(requestBody).to.have.any.keys('_id', 'title', 'genre', 'releaseYear', 'actors');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response Content-Type header is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response data format is correct\", function () {",
+									"  const responseData = pm.response.json();",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData).to.have.property('success');",
+									"  pm.expect(responseData).to.have.property('message');",
+									"  pm.expect(responseData).to.have.property('data');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Actors field is an array and not empty\", function () {",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.data.actors).to.be.an('array').and.to.have.lengthOf.at.least(1, \"Array should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Success is true\", function () {",
+									"  const responseData = pm.response.json();",
+									"  pm.expect(responseData.success).to.equal(true);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"actors\": [\"664bc13ba1df499534c892e0\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/tvshows/{{tvshowId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tvshows",
+								"{{tvshowId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tvshow by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"pm.test(\"Response has the Content-Type header set to 'application/json'\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"pm.test(\"Success is true\", function () {",
+									"  const responseData = pm.response.json();",
+									"  pm.expect(responseData.success).to.equal(true);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/tvshows/{{tvshowId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tvshows",
+								"{{tvshowId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "actors",
+			"item": [
+				{
+					"name": "actors",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/actors/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"actors",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Mariska Hargitay\", \"age\": 60, \"gender\": \"Female\", \"filmography\": [\"664bad8173a9b1f355a4cd04\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/actors/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"actors",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actor by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/actors/664bc13ba1df499534c892e0",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"actors",
+								"664bc13ba1df499534c892e0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actor by id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"filmography\": [\"664bc0d7a1df499534c892d8\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/actors/664bc13ba1df499534c892e0",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"actors",
+								"664bc13ba1df499534c892e0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actor by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/actors/664bc13ba1df499534c892e0",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"actors",
+								"664bc13ba1df499534c892e0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "localhost",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/v1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "tvshowId",
+			"value": ""
+		}
+	]
+}
