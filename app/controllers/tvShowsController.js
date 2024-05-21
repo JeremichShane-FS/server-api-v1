@@ -17,7 +17,7 @@ export const getAllTVShows = async (req, res) => {
       data: tvShow,
     });
   } catch (err) {
-    res.status(404).json({
+    res.status(500).json({
       success: false,
       message: `Error: ${err.message}`,
     });
@@ -41,7 +41,7 @@ export const getTVShow = async (req, res) => {
       data: tvShow,
     });
   } catch (err) {
-    res.status(404).json({
+    res.status(500).json({
       status: false,
       message: `${err.message}`,
     });
@@ -50,6 +50,13 @@ export const getTVShow = async (req, res) => {
 
 export const createTVShow = async (req, res) => {
   try {
+    if (!req.body) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide TV Show details",
+      });
+    }
+
     const tvShow = await TVShow.create(req.body);
     res.status(200).json({
       success: true,
@@ -67,6 +74,13 @@ export const createTVShow = async (req, res) => {
 export const updateTVShow = async (req, res) => {
   const { id } = req.params;
   try {
+    if (!req.body) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide TV Show details to update",
+      });
+    }
+
     const existingTVShow = await TVShow.findById(id);
     if (!existingTVShow) {
       return res.status(404).json({
@@ -85,7 +99,7 @@ export const updateTVShow = async (req, res) => {
       data: tvShow,
     });
   } catch (err) {
-    res.status(404).json({
+    res.status(500).json({
       success: false,
       message: `Update Error: ${err.message}`,
     });

@@ -17,7 +17,7 @@ export const getAllActors = async (req, res) => {
       data: actors,
     });
   } catch (err) {
-    res.status(404).json({
+    res.status(500).json({
       success: false,
       message: `Error: ${err.message}`,
     });
@@ -41,7 +41,7 @@ export const getActor = async (req, res) => {
       data: actor,
     });
   } catch (err) {
-    res.status(404).json({
+    res.status(500).json({
       status: false,
       message: `${err.message}`,
     });
@@ -50,6 +50,12 @@ export const getActor = async (req, res) => {
 
 export const createActor = async (req, res) => {
   try {
+    if (!req.body) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide Actor details",
+      });
+    }
     const actor = await Actor.create(req.body);
     res.status(200).json({
       success: true,
@@ -67,6 +73,12 @@ export const createActor = async (req, res) => {
 export const updateActor = async (req, res) => {
   const { id } = req.params;
   try {
+    if (!req.body) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide Actor details to update",
+      });
+    }
     const actor = await Actor.findByIdAndUpdate(id, req.body, {
       new: true,
       runValidators: true,
