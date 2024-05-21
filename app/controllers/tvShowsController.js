@@ -2,7 +2,15 @@ import { TVShow } from "../models/TVShow.js";
 
 export const getAllTVShows = async (req, res) => {
   try {
-    const tvShow = await TVShow.find({}).populate("actors");
+    const tvShow = await TVShow.find({}).select("-__v").populate("actors").exec();
+
+    if (!tvShow) {
+      return res.status(404).json({
+        success: false,
+        message: "No TV Shows found",
+      });
+    }
+
     res.status(200).json({
       success: true,
       message: `${req.method} - ${req.hostname} - ${req.originalUrl}`,
@@ -20,7 +28,7 @@ export const getTVShow = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const tvShow = await TVShow.findById(id).populate("actors");
+    const tvShow = await TVShow.findById(id).select("-__v").populate("actors");
     if (!tvShow) {
       return res.status(404).json({
         success: false,

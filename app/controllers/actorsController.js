@@ -2,7 +2,7 @@ import { Actor } from "../models/Actor.js";
 
 export const getAllActors = async (req, res) => {
   try {
-    const actors = await Actor.find({}).populate("filmography");
+    const actors = await Actor.find({}).select("-__v").populate("filmography");
     res.status(200).json({
       success: true,
       message: `${req.method} - ${req.hostname} - ${req.originalUrl}`,
@@ -20,7 +20,7 @@ export const getActor = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const actor = await Actor.findById(id).populate("filmography");
+    const actor = await Actor.findById(id).select("-__v").populate("filmography");
     if (!actor) {
       return res.status(404).json({
         success: false,
