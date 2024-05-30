@@ -16,6 +16,20 @@ const tvShowSchema = new mongoose.Schema({
     min: [1900, "Release year must be after 1900"],
     max: [new Date().getFullYear(), "Release year must be before current year"],
   },
+  poster: {
+    type: String,
+    default: "",
+    validate: {
+      validator: function (v) {
+        if (v === "") {
+          return true;
+        }
+        const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+        return urlRegex.test(v);
+      },
+      message: props => `${props.value} is not a valid URL`,
+    },
+  },
   actors: [
     {
       type: mongoose.Schema.Types.ObjectId,
