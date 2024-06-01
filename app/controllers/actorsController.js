@@ -7,7 +7,6 @@ export const getAllActors = async (req, res, next) => {
   try {
     let query = {};
 
-    // Handle name search
     if (req.query.name) {
       const names = req.query.name.replace(/-/g, " ").split(" ");
       const regex = new RegExp(names.join("\\s*"), "i");
@@ -25,7 +24,6 @@ export const getAllActors = async (req, res, next) => {
       };
     }
 
-    // Handle firstName search
     if (req.query.firstName) {
       query.firstName = req.query.firstName;
     }
@@ -34,7 +32,6 @@ export const getAllActors = async (req, res, next) => {
       .select("-__v")
       .populate("filmography.tvShowId", "title releaseYear -_id");
 
-    // Handle pagination
     if (req.query.skip || req.query.limit) {
       const skip = parseInt(req.query.skip) || 0;
       const limit = parseInt(req.query.limit) || 0;
@@ -43,7 +40,6 @@ export const getAllActors = async (req, res, next) => {
       }
     }
 
-    // Handle sorting
     if (req.query.sort) {
       if (typeof actorsQuery.sort === "function") {
         actorsQuery = actorsQuery.sort(req.query.sort);
@@ -97,13 +93,6 @@ export const getActor = async (req, res, next) => {
       .populate("filmography.tvShowId", "title releaseYear -_id")
       .sort({ "filmography.tvShowId.releaseYear": -1 });
 
-    // if (!actor) {
-    //   return res.status(404).json({
-    //     success: false,
-    //     message: RESPONSE_MESSAGES.RECORD_NOT_FOUND(id).replace("record", "Actor"),
-    //   });
-    // }
-
     if (actor.toObject) {
       actor = actor.toObject();
     }
@@ -136,7 +125,6 @@ export const getActor = async (req, res, next) => {
       data: actor,
     });
   } catch (err) {
-    // If the error is because the actor was not found, send a 404 response
     if (
       err instanceof TypeError &&
       err.message === "Cannot read properties of null (reading 'select')"

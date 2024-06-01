@@ -30,7 +30,7 @@ export const getAllTVShows = async (req, res, next) => {
       })
       .sort({ title: 1 });
 
-    if (!tvShows || tvShows.length === 0) {
+    if (!tvShows) {
       return res.status(404).json({
         success: false,
         message: RESPONSE_MESSAGES.NO_RECORDS_FOUND.replace("records", "TV shows"),
