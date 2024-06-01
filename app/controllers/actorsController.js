@@ -9,7 +9,7 @@ export const getAllActors = async (req, res, next) => {
 
     if (req.query.name) {
       const names = req.query.name.replace(/-/g, " ").split(" ");
-      const regex = new RegExp(names.join("\\s*"), "i");
+      const regex = new RegExp(names.join("\\s*"));
 
       query = {
         $or: [
@@ -35,19 +35,16 @@ export const getAllActors = async (req, res, next) => {
     if (req.query.skip || req.query.limit) {
       const skip = parseInt(req.query.skip) || 0;
       const limit = parseInt(req.query.limit) || 0;
+
       if (typeof actorsQuery.skip === "function" && typeof actorsQuery.limit === "function") {
         actorsQuery = actorsQuery.skip(skip).limit(limit);
       }
     }
 
-    if (req.query.sort) {
-      if (typeof actorsQuery.sort === "function") {
-        actorsQuery = actorsQuery.sort(req.query.sort);
-      }
-    } else {
-      if (typeof actorsQuery.sort === "function") {
-        actorsQuery = actorsQuery.sort({ firstName: 1, lastName: 1 });
-      }
+    if (typeof actorsQuery.sort === "function") {
+      actorsQuery = actorsQuery.sort(
+        req.query.sort ? req.query.sort : { lastName: 1, firstName: 1 }
+      );
     }
 
     let actors = await actorsQuery;
