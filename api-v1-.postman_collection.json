@@ -20,77 +20,6 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"pm.test(\"Response has the required fields\", function () {",
-									"    const responseData = pm.response.json();",
-									"    pm.expect(responseData.data).to.be.an('array'); ",
-									"    pm.expect(responseData.data[0]).to.have.property(\"title\");",
-									"    pm.expect(responseData.data[0]).to.have.property(\"genre\");",
-									"    pm.expect(responseData.data[0]).to.have.property(\"releaseYear\"); ",
-									"    pm.expect(responseData.data[0]).to.have.property(\"poster\"); ",
-									"    pm.expect(responseData.data[0]).to.have.property(\"actors\");",
-									"});",
-									"",
-									"pm.test(\"Response ready to process\", function() {",
-									"    pm.response.to.not.be.error;",
-									"    pm.response.to.have.jsonBody(\"data\");",
-									"    pm.response.to.not.have.jsonBody(\"error\");",
-									"    pm.expect(pm.response.json()).to.have.property(\"data\");",
-									"});",
-									"",
-									"pm.test(\"Content-Type header is application/json\", function () {",
-									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
-									"});",
-									"",
-									"",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:3000/api/v1/tvshows/",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"v1",
-								"tvshows",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "tvshows",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
 									"pm.test(\"Request body is not empty\", function () {",
 									"    pm.expect(pm.request.body).not.eql({});",
 									"});",
@@ -124,7 +53,88 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"title\": \"The Rookie\", \"genre\": \"drama\", \"releaseYear\": 2018}",
+							"raw": "// {\"title\": \"The Rookie\"}\n// {}\n\n\n\n// {\"title\": \"The Rookie\", \"genre\": \"drama\", \"releaseYear\": 2018}\n// {\"title\": \"Castle\", \"genre\": \"drama\", \"releaseYear\": 2009}\n// {\"title\": \"Firefly\", \"genre\": \"adventure\", \"releaseYear\": 2002}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/tvshows/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tvshows",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tvshows",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// pm.test(\"Response status code is 200\", function () {",
+									"//     pm.response.to.have.status(200);",
+									"// });",
+									"",
+									"// pm.test(\"Response has the required fields\", function () {",
+									"//     const responseData = pm.response.json();",
+									"//     pm.expect(responseData.data).to.be.an('array'); ",
+									"//     pm.expect(responseData.data[0]).to.have.property(\"title\");",
+									"//     pm.expect(responseData.data[0]).to.have.property(\"genre\");",
+									"//     pm.expect(responseData.data[0]).to.have.property(\"releaseYear\"); ",
+									"//     pm.expect(responseData.data[0]).to.have.property(\"poster\"); ",
+									"//     pm.expect(responseData.data[0]).to.have.property(\"actors\");",
+									"// });",
+									"",
+									"// pm.test(\"Response ready to process\", function() {",
+									"//     pm.response.to.not.be.error;",
+									"//     pm.response.to.have.jsonBody(\"data\");",
+									"//     pm.response.to.not.have.jsonBody(\"error\");",
+									"//     pm.expect(pm.response.json()).to.have.property(\"data\");",
+									"// });",
+									"",
+									"// pm.test(\"Content-Type header is application/json\", function () {",
+									"//     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"// });",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -209,6 +219,40 @@
 								"{{tvshowId}}"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "tvshow by title",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/tvshows?title=therookie",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tvshows"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "therookie"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "tvshow by year",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				},
@@ -361,12 +405,72 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "tvshow by year and genre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/tvshows?releaseYear=2009&genre=drama",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tvshows"
+							],
+							"query": [
+								{
+									"key": "releaseYear",
+									"value": "2009"
+								},
+								{
+									"key": "genre",
+									"value": "drama"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
 		{
 			"name": "actors",
 			"item": [
+				{
+					"name": "actor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "// {\"firstName\": \"Nathan\", \"lastName\": \"Fillion\", \"dob\": \"1971-03-27\", \"gender\": \"Male\", \"bio\": \"Nathan Fillion was born in Edmonton, Alberta, the younger of two sons of Robert 'Bob' Fillion and June 'Cookie' Early, both retired English teachers. Both sides of his father's family were part of the Quebec diaspora in Fall River, Massachusetts, and his mother had a Norwegian maternal grandfather and a Finnish maternal grandmother.  Fillion was raised in Edmonton's Mill Woods neighbourhood and completed his secondary and post-secondary education in Edmonton, attending Holy Trinity Catholic High School, Concordia University College of Alberta, and the University of Alberta, where he was a member of the Kappa Alpha Society. He has been a U.S. citizen since 1997\", \"filmography\": [{\"tvShowId\": \"665109fff7bf7a3de2aa1125\", \"characterName\": \"John Nolan\"}]}\n{\"firstName\": \"Nathan\", \"lastName\": \"Fillion\", \"dob\": \"1971-03-27\", \"gender\": \"Male\", \"bio\": \"Nathan Fillion was born in Edmonton, Alberta, the younger of two sons of Robert 'Bob' Fillion and June 'Cookie' Early, both retired English teachers. Both sides of his father's family were part of the Quebec diaspora in Fall River, Massachusetts, and his mother had a Norwegian maternal grandfather and a Finnish maternal grandmother.  Fillion was raised in Edmonton's Mill Woods neighbourhood and completed his secondary and post-secondary education in Edmonton, attending Holy Trinity Catholic High School, Concordia University College of Alberta, and the University of Alberta, where he was a member of the Kappa Alpha Society. He has been a U.S. citizen since 1997\"}\n\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/v1/actors/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"actors",
+								""
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "actors",
 					"protocolProfileBehavior": {
@@ -385,7 +489,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/api/v1/actors/",
+							"raw": "localhost:3000/api/v1/actors",
 							"host": [
 								"localhost"
 							],
@@ -393,38 +497,7 @@
 							"path": [
 								"api",
 								"v1",
-								"actors",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "actor",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"firstName\": \"Nathan\", \"lastName\": \"Fillion\", \"dob\": \"1971-03-27\", \"gender\": \"Male\", \"bio\": \"Nathan Fillion was born in Edmonton, Alberta, the younger of two sons of Robert 'Bob' Fillion and June 'Cookie' Early, both retired English teachers. Both sides of his father's family were part of the Quebec diaspora in Fall River, Massachusetts, and his mother had a Norwegian maternal grandfather and a Finnish maternal grandmother.  Fillion was raised in Edmonton's Mill Woods neighbourhood and completed his secondary and post-secondary education in Edmonton, attending Holy Trinity Catholic High School, Concordia University College of Alberta, and the University of Alberta, where he was a member of the Kappa Alpha Society. He has been a U.S. citizen since 1997\", \"filmography\": [{\"tvShowId\": \"665109fff7bf7a3de2aa1125\", \"characterName\": \"John Nolan\"}]}\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:3000/api/v1/actors/",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"v1",
-								"actors",
-								""
+								"actors"
 							]
 						}
 					},
@@ -448,7 +521,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/api/v1/actors/66510a51cc5d085911a31ea3",
+							"raw": "localhost:3000/api/v1/actors/665657289b550d8ff1015883",
 							"host": [
 								"localhost"
 							],
@@ -457,7 +530,33 @@
 								"api",
 								"v1",
 								"actors",
-								"66510a51cc5d085911a31ea3"
+								"665657289b550d8ff1015883"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actor by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/v1/actors?name=nathan-fillion",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"actors"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "nathan-fillion"
+								}
 							]
 						}
 					},
@@ -470,7 +569,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"picture\": \"https://static.tvmaze.com/uploads/images/medium_portrait/248/620269.jpg\"}",
+							"raw": "// {\"filmography\": []}\n\n// {\"filmography\": [{\"tvShowId\": \"6657708c962be594c67d9c52\", \"characterName\": \"John Nolan\"}]}\n// {\"filmography\": [{\"tvShowId\": \"66577089962be594c67d9c50\", \"characterName\": \"Richard Castle\"}]}\n// {\"filmography\": [{\"tvShowId\": \"66577081962be594c67d9c4e\", \"characterName\": \"Captain Malcolm 'Mal' Reynolds\"}]}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -478,7 +577,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/api/v1/actors/66510a51cc5d085911a31ea3",
+							"raw": "localhost:3000/api/v1/actors/66577091962be594c67d9c54",
 							"host": [
 								"localhost"
 							],
@@ -487,7 +586,7 @@
 								"api",
 								"v1",
 								"actors",
-								"66510a51cc5d085911a31ea3"
+								"66577091962be594c67d9c54"
 							]
 						}
 					},
@@ -508,7 +607,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/api/v1/actors/664f9f7ee18388f846387e54",
+							"raw": "localhost:3000/api/v1/actors/665654924fc3bc435e7a8536",
 							"host": [
 								"localhost"
 							],
@@ -517,7 +616,7 @@
 								"api",
 								"v1",
 								"actors",
-								"664f9f7ee18388f846387e54"
+								"665654924fc3bc435e7a8536"
 							]
 						}
 					},

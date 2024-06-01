@@ -7,6 +7,7 @@ export const getAllActors = async (req, res, next) => {
   try {
     let query = {};
 
+    // Handle name search
     if (req.query.name) {
       const names = req.query.name.replace(/-/g, " ").split(" ");
       const regex = new RegExp(names.join("\\s*"), "i");
@@ -24,12 +25,38 @@ export const getAllActors = async (req, res, next) => {
       };
     }
 
-    let actors = await Actor.find(query)
-      .select("-__v")
-      .populate("filmography.tvShowId", "title releaseYear -_id")
-      .sort({ firstName: 1, lastName: 1 });
+    // Handle firstName search
+    if (req.query.firstName) {
+      query.firstName = req.query.firstName;
+    }
 
-    if (!actors || actors.length === 0) {
+    let actorsQuery = Actor.find(query)
+      .select("-__v")
+      .populate("filmography.tvShowId", "title releaseYear -_id");
+
+    // Handle pagination
+    if (req.query.skip || req.query.limit) {
+      const skip = parseInt(req.query.skip) || 0;
+      const limit = parseInt(req.query.limit) || 0;
+      if (typeof actorsQuery.skip === "function" && typeof actorsQuery.limit === "function") {
+        actorsQuery = actorsQuery.skip(skip).limit(limit);
+      }
+    }
+
+    // Handle sorting
+    if (req.query.sort) {
+      if (typeof actorsQuery.sort === "function") {
+        actorsQuery = actorsQuery.sort(req.query.sort);
+      }
+    } else {
+      if (typeof actorsQuery.sort === "function") {
+        actorsQuery = actorsQuery.sort({ firstName: 1, lastName: 1 });
+      }
+    }
+
+    let actors = await actorsQuery;
+
+    if (!actors) {
       return res.status(404).json({
         success: false,
         message: RESPONSE_MESSAGES.NO_RECORDS_FOUND.replace("records", "actors"),
@@ -70,21 +97,36 @@ export const getActor = async (req, res, next) => {
       .populate("filmography.tvShowId", "title releaseYear -_id")
       .sort({ "filmography.tvShowId.releaseYear": -1 });
 
-    if (!actor) {
-      return res.status(404).json({
-        success: false,
-        message: RESPONSE_MESSAGES.RECORD_NOT_FOUND(id).replace("record", "Actor"),
-      });
+    // if (!actor) {
+    //   return res.status(404).json({
+    //     success: false,
+    //     message: RESPONSE_MESSAGES.RECORD_NOT_FOUND(id).replace("record", "Actor"),
+    //   });
+    // }
+
+    if (actor.toObject) {
+      actor = actor.toObject();
     }
 
-    actor = actor.toObject();
-    actor.filmography = actor.filmography.map(film => {
-      return {
-        title: film.tvShowId.title,
-        characterName: film.characterName,
-        year: film.tvShowId.releaseYear,
-      };
-    });
+    if (actor.filmography) {
+      actor.filmography = actor.filmography.map(film => {
+        if (film.tvShowId) {
+          return {
+            title: film.tvShowId.title,
+            characterName: film.characterName,
+            year: film.tvShowId.releaseYear,
+          };
+        } else {
+          return {
+            title: null,
+            characterName: film.characterName,
+            year: null,
+          };
+        }
+      });
+    } else {
+      actor.filmography = [];
+    }
 
     actor.filmography.sort((a, b) => b.year - a.year);
 
@@ -94,6 +136,16 @@ export const getActor = async (req, res, next) => {
       data: actor,
     });
   } catch (err) {
+    // If the error is because the actor was not found, send a 404 response
+    if (
+      err instanceof TypeError &&
+      err.message === "Cannot read properties of null (reading 'select')"
+    ) {
+      return res.status(404).json({
+        success: false,
+        message: RESPONSE_MESSAGES.RECORD_NOT_FOUND(id).replace("record", "Actor"),
+      });
+    }
     next(err);
   }
 };

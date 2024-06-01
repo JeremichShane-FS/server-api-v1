@@ -70,7 +70,7 @@ MONGODB_URI = mongodb://localhost:27017/mydatabase
 
 ## 🔧 Usage
 
-To interact with the API, you can use [Postman](https://www.postman.com/downloads/). A Postman collection is included in the repository, which contains pre-configured requests for all the API endpoints.
+To interact with the API, you can use [Postman](https://www.postman.com/downloads/). A Postman collection is included in the repository, `api-v1-.postman_collection.json`, which contains pre-configured requests for all the API endpoints.
 
 To use the Postman collection:
 
@@ -93,6 +93,60 @@ The collection includes the following requests:
 4. **PUT by ID (Update data)**: Sends a PUT request to `http://localhost:3000/api/v1/tvshows/{id}` or `http://localhost:3000/api/v1/actors/{id}`. Replace `{id}` with the ID of the data you want to update. In the request body, include the updated data in JSON format.
 
 5. **DELETE by ID**: Sends a DELETE request to `http://localhost:3000/api/v1/tvshows/{id}` or `http://localhost:3000/api/v1/actors/{id}`. Replace `{id}` with the ID of the data you want to delete.
+
+## 🧪 Testing
+
+This project uses [Jest](https://jestjs.io/) for testing. Tests are located in the `__tests__` directory and are organized by the module they are testing. For example, the `actorsController.test.js` file contains tests for the actors controller.
+
+There are several scripts in the `package.json` file that help with running the tests:
+
+- `"test": "jest"`: This script runs all test files that match the `*.test.js` pattern. After the tests have run, Jest will output the results to the console.
+- `"jest:watch": "jest --watchAll"`: This script runs Jest in watch mode. In watch mode, Jest will automatically re-run the tests whenever a file changes.
+- `"jest:coverage": "jest --coverage"`: This script runs Jest and generates a coverage report. The coverage report shows how much of your code is covered by tests.
+- `"jest:clear": "jest --clearCache"`: This script clears the Jest cache. Clearing the cache can help resolve issues where Jest isn't recognizing changes to your files.
+
+To run the tests, use the following command:
+
+```bash
+npm test
+```
+
+To run Jest in watch mode, use the following command:
+
+```bash
+npm run jest:watch
+```
+
+To generate a coverage report, use the following command:
+
+```bash
+npm run jest:coverage
+```
+
+To clear the Jest cache, use the following command:
+
+```bash
+npm run jest:clear
+```
+
+In the `actorsController.test.js` file, we're importing the `Actor` model and the `app` from the main application file. We're using `jest.mock` to mock the `Actor` model, and then we're defining tests for the different endpoints in the actors controller.
+
+Here's an example of a test from the `actorsController.test.js` file:
+
+```javascript
+it("should get an actor by id", async () => {
+  const res = await request(app).get("/api/v1/actors/1");
+
+  expect(Actor.findById).toHaveBeenCalledTimes(1);
+  expect(res.statusCode).toEqual(200);
+  expect(res.body).toHaveProperty("success", true);
+  expect(res.body).toHaveProperty("data", res.body.data);
+});
+```
+
+In this test, we're sending a GET request to the "/api/v1/actors/1" endpoint to get the actor with an ID of 1. We're then checking that the `findById` method of the `Actor` model was called once, that the response status code is 200, that the `success` property of the response body is `true`, and that the `data` property of the response body matches the expected data.
+
+For more information on writing tests with Jest, check out the [Jest documentation](https://jestjs.io/docs/getting-started).
 
 ## 📜 License
 

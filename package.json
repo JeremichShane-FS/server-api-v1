@@ -14,10 +14,24 @@
   "scripts": {
     "dev": "nodemon --env-file=.env --no-warnings server.js",
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "jest:watch": "jest --watchAll",
+    "jest:coverage": "jest --coverage",
+    "jest:clear": "jest --clearCache"
   },
   "version": "1.0.0",
   "devDependencies": {
-    "nodemon": "^3.1.0"
+    "@babel/core": "^7.24.6",
+    "@babel/preset-env": "^7.24.6",
+    "babel-jest": "^27.4.5",
+    "jest": "^27.4.5",
+    "nodemon": "^3.1.0",
+    "supertest": "^7.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    }
   }
 }
