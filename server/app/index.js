@@ -1,3 +1,4 @@
+import cors from "cors";
 import express from "express";
 import morgan from "morgan";
 import { RESPONSE_MESSAGES } from "./constants/responseMessages.js";
@@ -5,7 +6,10 @@ import { handleMongooseErrors } from "./middleware/handleMongooseErrors.js";
 import routeHandler from "./routes/index.js";
 
 const app = express();
+
+app.use(cors());
 app.use(morgan("dev"));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: "10kb" }));
 
 app.use("/api/v1", routeHandler);

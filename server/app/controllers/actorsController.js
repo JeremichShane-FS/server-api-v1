@@ -5,7 +5,7 @@ import validateFilmography from "../utils/validateFilmography.js";
 
 export const getAllActors = async (req, res, next) => {
   try {
-    let query = {};
+    let query = Object.create(null);
 
     if (req.query.name) {
       const names = req.query.name.replace(/-/g, " ").split(" ");

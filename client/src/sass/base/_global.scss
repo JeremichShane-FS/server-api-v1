@@ -1,0 +1,19 @@
+@use "colors" as *;
+
+/* Remove default margin */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Prevent font size inflation */
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+body {
+  background-color: $background-color;
+}

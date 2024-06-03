@@ -5,7 +5,7 @@ import transformActors from "../utils/transformActors.js";
 
 export const getAllTVShows = async (req, res, next) => {
   try {
-    const query = {};
+    const query = Object.create(null);
 
     if (req.query.title) {
       const titleWithoutSpaces = req.query.title.replace(/\s+/g, "");
