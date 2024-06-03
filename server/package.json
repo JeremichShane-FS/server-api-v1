@@ -1,25 +1,10 @@
 {
-  "author": "",
+  "name": "server",
   "dependencies": {
     "express": "^4.19.2",
     "mongoose": "^8.3.5",
     "morgan": "^1.10.0"
   },
-  "type": "module",
-  "description": "",
-  "keywords": [],
-  "license": "ISC",
-  "main": "server.js",
-  "name": "server",
-  "scripts": {
-    "dev": "nodemon --env-file=.env --no-warnings server.js",
-    "start": "node server.js",
-    "test": "jest",
-    "jest:watch": "jest --watchAll",
-    "jest:coverage": "jest --coverage",
-    "jest:clear": "jest --clearCache"
-  },
-  "version": "1.0.0",
   "devDependencies": {
     "@babel/core": "^7.24.6",
     "@babel/preset-env": "^7.24.6",
@@ -33,5 +18,14 @@
     "transform": {
       "^.+\\.js$": "babel-jest"
     }
-  }
+  },
+  "scripts": {
+    "dev": "nodemon --env-file=.env --no-warnings server.js",
+    "jest:clear": "jest --clearCache",
+    "jest:coverage": "jest --coverage",
+    "jest:watch": "jest --watchAll",
+    "start": "node server.js",
+    "test": "jest"
+  },
+  "type": "module"
 }
