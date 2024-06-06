@@ -63,7 +63,7 @@ const TVShowDetails = () => {
         </div>
       </div>
       <button className="tvshow-card__delete" onClick={deleteTVShow}>
-        X
+        Delete TV Show
       </button>
     </Card>
   );

@@ -40,6 +40,11 @@ API.createActor = async data => {
   return res.data;
 };
 
+API.deleteActor = async id => {
+  const res = await axios.delete(`${baseURL}/actors/${id}`);
+  return res;
+};
+
 API.getProfilePicture = async () => {
   const res = await axios.get("https://randomuser.me/api/");
   return res.data.results[0].picture.thumbnail;

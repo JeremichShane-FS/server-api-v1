@@ -71,7 +71,7 @@ const ActorDetails = () => {
         </div>
       </div>
       <button className="actor-card__delete" onClick={deleteActor}>
-        X
+        Delete Actor
       </button>
     </Card>
   );

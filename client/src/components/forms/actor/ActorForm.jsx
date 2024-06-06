@@ -17,8 +17,6 @@ const ActorForm = () => {
   const genders = ["Male", "Female", "Non-Binary"];
   const [form, setForm] = useState(initialFormState);
 
-  console.log(form);
-
   const handleChange = e => {
     if (e.target.name === "tvShowId" || e.target.name === "characterName") {
       setForm({
@@ -38,8 +36,14 @@ const ActorForm = () => {
   const handleSubmit = async e => {
     e.preventDefault();
 
+    let actorData = { ...form };
+
+    if (form.filmography[0].tvShowId === "" || form.filmography[0].characterName === "") {
+      delete actorData.filmography;
+    }
+
     try {
-      await API.createActor(form);
+      await API.createActor(actorData);
       setForm(initialFormState);
       refresh();
     } catch (err) {

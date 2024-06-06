@@ -1,7 +1,6 @@
 @use "../../sass/base/" as *;
 
 .tvshow-card {
-  position: relative;
   &__header {
     display: flex;
   }
@@ -47,12 +46,9 @@
     }
   }
   &__delete {
-    position: absolute;
-    top: 0;
-    right: 5px;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
+    width: 20rem;
+    padding: 0.625rem 0;
+    margin: 0 auto;
     cursor: pointer;
   }
 }
