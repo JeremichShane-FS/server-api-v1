@@ -1,0 +1,16 @@
+@use "../../sass/base/" as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+
+  height: max-content;
+  margin: 1.25rem;
+  padding: 1.25rem;
+  border: 0.0625rem solid #ccc;
+  border-radius: 0.625rem;
+
+  background: $white;
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}

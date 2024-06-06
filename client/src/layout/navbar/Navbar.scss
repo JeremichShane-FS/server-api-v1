@@ -1,0 +1,39 @@
+@use "../../sass/base/" as *;
+
+.navbar {
+  &__nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    list-style: none;
+
+    text-transform: uppercase;
+  }
+
+  &__item {
+    margin-right: 1.25rem;
+  }
+
+  &__link {
+    display: flex;
+    justify-content: center;
+
+    &:hover {
+      color: $slate-gray;
+    }
+
+    &.active {
+      color: $paynes-gray;
+    }
+  }
+
+  &__span {
+    margin: auto 0.625rem;
+  }
+
+  &__icon {
+    align-items: center;
+    font-size: 1.25rem;
+  }
+}

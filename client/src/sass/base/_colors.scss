@@ -1,9 +1,9 @@
 /* SCSS HEX */
-$paynes-gray: #666a86ff;
-$slate-gray: #788aa3ff;
-$cambridge-blue: #92b6b1ff;
-$celadon: #b2c9abff;
-$dutch-white: #e8ddb5ff;
+$paynes-gray: #666a86;
+$slate-gray: #788aa3;
+$cambridge-blue: #92b6b1;
+$celadon: #b2c9ab;
+$dutch-white: #e8ddb5;
 
 // gray scale colors
 $gray-100: #f8f9fa;
@@ -16,17 +16,21 @@ $gray-700: #495057;
 $gray-800: #343a40;
 $gray-900: #212529;
 
+//white and black colors
+$white: #ffffff;
+$black: #000000;
+
 // dark gray scale colors
 $dark-gray-100: #4a4b4c;
 $dark-gray-200: #3a3b3c;
 
 // rgba colors
-$rgba-black-90: rgba(black, 0.9);
-$rgba-black-95: rgba(black, 0.95);
+$rgba-black-90: rgba($black, 0.9);
+$rgba-black-95: rgba($black, 0.95);
 $rgba-white-30: rgba($white, 0.3);
 
 // bg and text colors
-$background-color: $sky-blue;
+$background-color: $white;
 $text-color: $gray-900;
 
 // semantic colors
@@ -36,23 +40,26 @@ $warning-color: #ffc107;
 $info-color: #17a2b8;
 
 // primary color
-$primary-color: $sky-blue;
-$secondary-color: $eerie-black;
+$primary-color: $paynes-gray;
+$secondary-color: $slate-gray;
+
 $primary-hover-color: $gray-100;
 $secondary-hover-color: $gray-800;
+
 $primary-active-color: $gray-100;
 $secondary-active-color: $gray-800;
+
 $primary-focus-color: $gray-100;
 $secondary-focus-color: $gray-800;
 
 // link colors
-$link-color: $tiffany-blue;
+$link-color: $cambridge-blue;
 $link-hover-color: $gray-800;
 $link-active-color: $gray-800;
 $link-focus-color: $gray-800;
 
 // button colors
-$button-color: $tiffany-blue;
+$button-color: $cambridge-blue;
 $button-hover-color: $gray-800;
 $button-active-color: $gray-800;
 $button-focus-color: $gray-800;
@@ -76,9 +83,8 @@ $input-active-color: $gray-900;
 $input-focus-color: $gray-900;
 
 // dark mode colors
-$dark-mode-background-color: $eerie-black;
+$dark-mode-background-color: $black;
 $dark-mode-text-color: $white;
 
 // status colors
 $status-active-color: #30f94b;
-$status-inactive-color: $ultra-violet;

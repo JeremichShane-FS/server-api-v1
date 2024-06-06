@@ -16,6 +16,11 @@ const tvShowSchema = new mongoose.Schema({
     min: [1900, "Release year must be after 1900"],
     max: [new Date().getFullYear(), "Release year must be before current year"],
   },
+  description: {
+    type: String,
+    required: [true, "Description of TV Show is required"],
+    maxLength: [1000, "Description must be less than 1000 characters"],
+  },
   poster: {
     type: String,
     default: "",

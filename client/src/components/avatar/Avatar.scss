@@ -1,0 +1,9 @@
+@use "../../sass/base/" as *;
+
+.avatar {
+  width: 3.125rem;
+  height: 3.125rem;
+  margin-right: 0.625rem;
+  border-radius: 50%;
+  border: 2px solid $white;
+}

@@ -147,7 +147,7 @@ export const createActor = async (req, res, next) => {
     const { filmography, ...actorData } = req.body;
     const actor = new Actor(actorData);
 
-    if (filmography && !validateFilmography(filmography, res)) {
+    if (filmography && validateFilmography(filmography, res)) {
       const tvShowIds = filmography.map(item => item.tvShowId);
       const tvShows = await TVShow.find({ _id: { $in: tvShowIds } });
 

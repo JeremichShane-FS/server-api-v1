@@ -1,0 +1,60 @@
+@use "../../sass/base/" as *;
+
+.actor-card {
+  position: relative;
+  &__header {
+    display: flex;
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+    max-width: 12.5rem;
+    max-height: 20rem;
+    object-fit: cover;
+  }
+
+  &__info {
+    padding: 3.125rem;
+  }
+
+  &__name {
+    font-size: 1.5rem;
+    margin-bottom: 0.625rem;
+  }
+
+  &__age,
+  &__gender {
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 0.625rem;
+  }
+
+  &__filmography {
+    padding: 1.25rem;
+    width: 50rem;
+    margin: 0 auto;
+
+    h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.625rem;
+    }
+
+    &-list {
+      & div {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 auto;
+      }
+    }
+  }
+  &__delete {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,9 @@
+.tv-shows {
+  margin: 0 auto;
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+}
