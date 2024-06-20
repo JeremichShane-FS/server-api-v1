@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 import path from "path";
 import { fileURLToPath } from "url";
-import { Actor } from "../models/Actor.js";
-import { TVShow } from "../models/TVShow.js";
 
 const __filename = fileURLToPath(new URL(import.meta.url));
 const filename = path.basename(__filename);
